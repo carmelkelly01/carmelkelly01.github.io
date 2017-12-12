@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+
+
+        <div id="box">
+                <div id="group-form">
+                  <div id="all-rooms">All rooms: 30</div>
+                  <div id="remaining-rooms">Rooms available: 30</div>
+                  <label>How many rooms would you like to book?</label>
+              <input type="text" id="rooms-to-book"></input>
+              
+              <button id="bookIn-button">Book In</button>
+              <button id="bookOut-button">Book Out</button>
+              
+              
+              <div id="info"><div>
+              </div>
+              </div>
+              
+              
+
+
+    <style>
+
+body {
+  background: black;
+}
+#box {
+  font-family: Arial, sans-serif;
+  font-size: 0.8em;
+  font-weight: bold;
+  background: #012632;
+  color: white;
+  width: 95%;
+  min-height: 140px;
+  text-align: center;
+  padding: 0.5%;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+input, button, #remaining-rooms {
+  margin: 1%;
+}
+input {
+  width: 90%;
+}
+#group-form {
+  margin-top: 0;
+}
+button {
+  background: red;
+  color: white;
+  font-weight: bold;
+}
+#info {
+  color: red;
+}
+
+    </style>
+
+    <script>
+    var hotel = {
+    rooms: 30,
+    remainingRooms: 30,
+    bookIn: function(numRooms){
+       if(this.remainingRooms >= numRooms) {
+         if(numRooms > 0) {
+      this.remainingRooms = this.remainingRooms - numRooms;}
+         else {
+           info.innerHTML = 'Please choose the number higher than 0';
+      }
+      } 
+      else {
+        info.innerHTML = 'Number of rooms to book in: ' + this.remainingRooms + '. Please choose a different number.';
+      }
+    },
+    bookOut: function(numRooms){
+      if(this.remainingRooms + numRooms <= this.rooms) {
+         if(numRooms > 0 ) {
+      this.remainingRooms = this.remainingRooms + numRooms;}
+         else {                   
+           info.innerHTML = 'Please choose the number higher than 0';
+         }
+      }
+      else {
+           info.innerHTML = 'Number of rooms to book out: ' + (this.rooms - this.remainingRooms) + '. Please choose a different number.';
+      }
+  }
+  };
+  var goIn = function() {
+    //get number of rooms to book
+    var numRoomsToBook = $('#rooms-to-book').val();
+    var info = document.getElementById('info');
+    info.innerHTML = '';
+    hotel.bookIn(numRoomsToBook);
+    // update the page
+    $('#remaining-rooms').text('Rooms available: ' + hotel.remainingRooms);
+    }
+  var goOut = function() {
+    //get number of rooms to book
+    var numRoomsToBook = $('#rooms-to-book').val();
+    numRoomsToBook = parseInt(numRoomsToBook);
+    var info = document.getElementById('info');
+    info.innerHTML = '';
+    hotel.bookOut(numRoomsToBook);
+    // update the page
+    $('#remaining-rooms').text('Rooms available: ' + hotel.remainingRooms);
+    }
+  $('#bookIn-button').click(goIn);
+  $('#bookOut-button').click(goOut);
+
+</script>
+
+</body>
+
+</html>
