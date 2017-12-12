@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+</head>
+
+
+<body>
+
+    <div id="container">
+        <div class="speech">Caesar Cipher</div>
+        <div class="input">
+            <form id="form">
+                Text:
+                <input type="text" id="cypher" /> Offset:
+                <input type="number" value="5" id="offset" />
+                <br/>
+                <br/>
+                <br/> Finish:
+                <input type="text" id="finish" />
+
+                <br/>
+                <br/>
+                <br/>
+
+            </form>
+        </div>
+    </div>
+
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        #container {
+            width: 100%;
+            margin: auto;
+            min-height: 100vh;
+        }
+        
+        .speech {
+            padding: 40px 0;
+            color: black;
+            text-shadow: 0 0 2px gray;
+            font: bold 36px 'Open Sans', sans-serif;
+            margin: auto;
+            width: 100%;
+            max-width: 580px;
+        }
+        
+        .input {
+            margin: auto;
+            width: 100%;
+            max-width: 580px;
+        }
+        
+        .input input {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 5px;
+            font: 20px 'Open Sans', sans-serif;
+        }
+        
+        .input input[type="range"] {
+            color: #444;
+            font: bold 19px sans-serif;
+        }
+        
+        .input input[type="range"]:before {
+            content: "Faster";
+            text-shadow: 0 0 5px white;
+        }
+        
+        .input input[type="range"]:after {
+            content: "Slower";
+            text-shadow: 0 0 5px white;
+        }
+    </style>
+    <script>
+        var alphabet = "abcdefghijklmnopqrstuvwxyz";
+        var fullAlphabet = alphabet + alphabet + alphabet;
+
+        function runCipher() {
+            var cipherText = $('#cypher').val();
+            var cipherOffset = $('#offset').val();
+            cipherOffset = (cipherOffset % alphabet.length);
+            var cipherFinish = '';
+
+            for (i = 0; i < cipherText.length; i++) {
+                var letter = cipherText[i];
+                var upper = (letter == letter.toUpperCase());
+                letter = letter.toLowerCase();
+
+                var index = alphabet.indexOf(letter);
+                if (index == -1) {
+                    cipherFinish += letter;
+                } else {
+                    index = ((index + cipherOffset) + alphabet.length);
+                    var nextLetter = fullAlphabet[index];
+                    if (upper) nextLetter = nextLetter.toUpperCase();
+                    cipherFinish += nextLetter;
+                }
+            }
+
+            $('#finish').val(cipherFinish);
+        }
+
+
+        $(document).ready(function () {
+            $('#cypher').keypress(function () {
+                setTimeout(function () { runCipher(); }, 20);
+            });
+            $('#cypher').blur(function () {
+                runCipher();
+            });
+            $('#offset').change(function () {
+                setTimeout(runCipher(), 20);
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
