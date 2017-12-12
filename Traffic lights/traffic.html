@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+        <h2>Traffic Lights</h2>
+        
+        <div onclick="switchLight(0)" class="light stop on" ></div>
+        <div onclick="switchLight(1)" class="light slow" ></div>
+        <div onclick="switchLight(2)" class="light go" ></div>
+
+    <style>
+        .light {
+            height: 120px;
+            width : 120px;
+            border-radius: 50%;
+            opacity : 0.3; /* makes colors less bright by default */
+            margin: 0 auto;
+            display: inline-block;
+          }
+          
+          .stop {background-color: red;}
+          .slow {background-color: yellow;}
+          .go {background-color: green;}
+          .on {opacity: 1;}
+          
+          body {
+            background-color : black;
+            text-align: center;
+            color :white;
+            font-family: Helvetica;
+          }
+        
+
+        
+    </style>
+    <script> 
+
+    // function toggleLights(){
+
+    //     greenLight.classList.toggle
+    //     redLight
+
+    // }
+    //         document.getElementById("button").onclick = function(){
+    //             document.getElementById("button").classList.toggle("red");
+                
+
+    //         };
+
+    //          document.getElementById("button1").onclick = function(){
+    //             document.getElementById("button1").classList.toggle("green");
+    //         };/* This line gets all the HTML elements with class="light" and assigns them to a variable called LIGHTS. */
+
+var LIGHTS = document.getElementsByClassName("light");
+
+
+function allOff() {
+  for (var i=0; i<LIGHTS.length; i = i+1) {
+    LIGHTS[i].classList.remove("on");
+  }
+}
+
+
+function switchLight(lightNumber) {
+  allOff();
+  var light = LIGHTS[lightNumber];
+  light.classList.add("on");
+}
+            
+                       
+    </script>
+
+</body>
+
+</html>
