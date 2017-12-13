@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+	<div class="card">
+	 <div class="bank-name" title="BestBank">
+	 <h1 class="heading">Credit Card Details</h1>
+	 </div>
+	 <div class="inputspace">
+    <input type="text" id='creditcardnumber' placeholder="Card Number">
+	</div>
+	<div class="inputspace">
+    <input type="text" id='CVV' placeholder="CVV">
+	</div>
+	<div class="inputspace">
+	<input type="text" id="expiry" placeholder="Expiry Date">
+	</div>
+	<div class="inputspace">
+    <input type="text" id='name' placeholder="Card Holder Name">
+	</div>
+    
+    <button id="submitButton"> Submit </button>
+	</div>
+	</div>
+</body>
+<style>
+
+
+.inputspace{
+	padding:2px;
+}
+
+.heading{
+	margin-right:40px;
+}
+
+.card {
+    position: relative;
+   
+    margin: auto;
+    width: 90.60mm;
+    height: 53.98mm;
+	padding:15px;
+    color: black;
+    font: 22px/1 @monospace;
+    background: #d3d3d3	;
+    border: 4px solid grey;
+    .border-radius(20px);
+    
+}
+
+.bank-name {
+    float: right;
+    margin-top: 15px;
+    margin-right: 30px;
+    font: 800 28px @sansSerif;
+}
+
+
+</style>
+
+<script>
+    function getFormData() {
+        var card = {
+            creditcardnumber: document.getElementById("creditcardnumber").value,
+            cvv: document.getElementById('CVV').value,
+            name: document.getElementById('name').value,
+            expiry: document.getElementById('expiry').value
+        }
+        console.log(card);
+        return card;
+    }
+
+    function isCardValid(card){
+
+        var isValid = true;
+
+        if(card.creditcardnumber === ''){
+            isValid = false;
+        }
+
+        if(card.cvv === ''){
+            isValid = false;
+        }
+
+        if(card.name === ''){
+            isValid = false;
+        }
+
+        if(!expiryIsValid(card.expiry)){
+            isValid = false;
+        }
+
+        console.log(isValid);
+        return isValid;
+
+    }
+
+    function determineCardVendor(cardNumber){
+
+        if(cardNumber.slice(0, 4) === '4319'){
+            return 'VISA';
+        } else if (cardNumber.slice(0, 4) === '5545'){
+            return 'MASTERCARD';
+        }
+
+        return 'UNKNOWN'
+
+    }
+
+    function expiryIsValid(expiry){
+
+        var month = 12;
+        var year = 17;
+
+        var usermonth = Number(expiry.slice(0,2));
+        var useryear = Number(expiry.slice(2));
+        return usermonth >= month && useryear >= year;
+    }
+
+    document.getElementById('submitButton').addEventListener("click", function () {
+	
+
+        var card = getFormData();
+        if(isCardValid(card)){
+            console.log("The Card is Valid");
+            console.log("Card Type is: ", determineCardVendor(card.creditcardnumber))
+        }
+        else{
+            console.log("It's not valid");
+			
+			 
+        }
+		
+	
+
+    });
+
+</script>
+
+</html>
