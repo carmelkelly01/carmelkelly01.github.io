@@ -109,16 +109,18 @@
 
     }
 
-    function expiryIsValid(expiry){
-
-        var month = 12;
-        var year = 17;
+      function expiryIsValid(expiry){
+        var month = new Date().getMonth() + 1;  
+        var year = String(new Date().getFullYear()).slice(2);
 
         var usermonth = Number(expiry.slice(0,2));
         var useryear = Number(expiry.slice(2));
-        return usermonth >= month && useryear >= year;
-    }
 
+        if(useryear > year) return true;
+        else if (useryear == year && usermonth >= month) return true;
+        else return false;     
+    }
+	
     document.getElementById('submitButton').addEventListener("click", function () {
 	
 
